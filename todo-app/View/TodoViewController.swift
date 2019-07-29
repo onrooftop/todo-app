@@ -10,10 +10,12 @@ import UIKit
 
 class TodoViewController: UITableViewController {
 
+    var searchController:UISearchController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .yellow
+        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -21,14 +23,44 @@ class TodoViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
+        setupView()
+        
         setupNav()
     }
 
     // MARK: - Set up
     
+    private func setupView() {
+        view.backgroundColor = .yellow
+    }
+    
     private func setupNav() {
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = .black
         navigationItem.title = "Todo"
+        let moreButtonItem = UIBarButtonItem(title: "•••", style: UIBarButtonItem.Style.plain, target: self, action: #selector(moreHandler))
+        let addButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(addTaskHandler))
+        navigationItem.rightBarButtonItems = [moreButtonItem, addButtonItem]
+        
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Search task"
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.tintColor = .black
+        navigationItem.searchController = searchController
+//        definesPresentationContext = true
+    }
+    
+    // MARK: - Handlers
+    
+    @objc
+    func addTaskHandler() {
+        print("addTaskHandler")
+    }
+    
+    @objc
+    func moreHandler() {
+        print("moreHandler")
     }
     
     // MARK: - Table view data source
@@ -98,4 +130,10 @@ class TodoViewController: UITableViewController {
     }
     */
 
+}
+
+extension TodoViewController: UISearchResultsUpdating{
+    func updateSearchResults(for searchController: UISearchController) {
+        print(searchController.searchBar.text ?? "")
+    }
 }
