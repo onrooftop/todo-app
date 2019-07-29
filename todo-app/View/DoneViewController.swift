@@ -28,7 +28,7 @@ class DoneViewController: UITableViewController {
     
     private func setupNav() {
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "DONE"
+        navigationItem.title = "Done"
     }
     
     // MARK: - Table view data source

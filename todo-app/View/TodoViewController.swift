@@ -28,7 +28,7 @@ class TodoViewController: UITableViewController {
     
     private func setupNav() {
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "TODO"
+        navigationItem.title = "Todo"
     }
     
     // MARK: - Table view data source
