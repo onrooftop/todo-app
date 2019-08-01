@@ -37,7 +37,7 @@ class TodoViewController: UITableViewController {
     }
     
     private func setupTableView() {
-        tableView.rowHeight = 80
+        tableView.rowHeight = 64
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
     }
     

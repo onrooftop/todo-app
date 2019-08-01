@@ -10,14 +10,72 @@ import UIKit
 
 class TaskViewCell: UITableViewCell {
 
+    let headerText: UILabel = {
+        let lb = UILabel()
+        lb.font = UIFont.boldSystemFont(ofSize: 18)
+        return lb
+    }()
+    
+    let timeAgoText: UILabel = {
+        let lb = UILabel()
+        lb.font = UIFont.systemFont(ofSize: 12)
+        lb.textColor = UIColor.lightGray
+        lb.numberOfLines = 2
+        lb.textAlignment = NSTextAlignment.center
+        return lb
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = .red
+        setupView()
+        
+        setHeaderText(with: "This is header", completed: false)
+        setTimeAgoText(with: "2 Weeks ")
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Set up
+    
+    private func setupView() {
+        backgroundColor = .clear
+        
+        //MARK: Enable Auto Layout
+        headerText.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(headerText)
+        
+        timeAgoText.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(timeAgoText)
+        
+        let constraints = [
+            //MARK: TimeAgoText
+            timeAgoText.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            timeAgoText.centerYAnchor.constraint(equalTo: centerYAnchor),
+            timeAgoText.widthAnchor.constraint(equalToConstant: 64),
+            
+            //MARK: HeaderText
+            headerText.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            headerText.centerYAnchor.constraint(equalTo: centerYAnchor),
+            headerText.trailingAnchor.constraint(equalTo: timeAgoText.leadingAnchor, constant: 16)
+        
+        ]
+        
+        NSLayoutConstraint.activate(constraints)
+        
+    }
+    
+    //MARK: - Helper
+    
+    private func setHeaderText(with text: String, completed: Bool) {
+        let style = completed ? 1 : 0
+        let attribute = NSAttributedString(string: text, attributes: [NSAttributedString.Key.strikethroughStyle: style])
+        headerText.attributedText = attribute
+    }
+    
+    private func setTimeAgoText(with dateString: String) {
+        timeAgoText.text = "\(dateString)\nago"
+    }
 }
