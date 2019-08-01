@@ -45,7 +45,7 @@ class TodoViewController: UITableViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.tintColor = .black
         navigationItem.title = "Todo"
-        let moreButtonItem = UIBarButtonItem(title: "•••", style: UIBarButtonItem.Style.plain, target: self, action: #selector(moreHandler))
+        let moreButtonItem = UIBarButtonItem(title: "•••", style: UIBarButtonItem.Style.plain, target: self, action: #selector(optionsHandler))
         let addButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(addTaskHandler))
         navigationItem.rightBarButtonItems = [moreButtonItem, addButtonItem]
         
@@ -67,7 +67,7 @@ class TodoViewController: UITableViewController {
     }
     
     @objc
-    func moreHandler() {
+    func optionsHandler() {
         print("moreHandler")
     }
     
