@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8367E4520668AC1907FE3422 /* Pods_todo_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A073B3B7DD27FB162DF033 /* Pods_todo_app.framework */; };
+		AE7CE86522F326BE00C1EFE4 /* TaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7CE86422F326BE00C1EFE4 /* TaskViewCell.swift */; };
 		AEB6C45922EF01B900107BEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB6C45822EF01B900107BEB /* AppDelegate.swift */; };
 		AEB6C45B22EF01B900107BEB /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB6C45A22EF01B900107BEB /* MainTabBarController.swift */; };
 		AEB6C45E22EF01B900107BEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEB6C45C22EF01B900107BEB /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		20D7E8D7962C35E0708083C1 /* Pods-todo-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todo-app.release.xcconfig"; path = "Target Support Files/Pods-todo-app/Pods-todo-app.release.xcconfig"; sourceTree = "<group>"; };
 		34A073B3B7DD27FB162DF033 /* Pods_todo_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_todo_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE7CE86422F326BE00C1EFE4 /* TaskViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewCell.swift; sourceTree = "<group>"; };
 		AEB6C45522EF01B900107BEB /* todo-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "todo-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEB6C45822EF01B900107BEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEB6C45A22EF01B900107BEB /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -50,7 +52,6 @@
 				C8BA0A195D86B6109D73D867 /* Pods-todo-app.debug.xcconfig */,
 				20D7E8D7962C35E0708083C1 /* Pods-todo-app.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -91,6 +92,7 @@
 				AEB6C45A22EF01B900107BEB /* MainTabBarController.swift */,
 				AEB6C46B22EF076100107BEB /* TodoViewController.swift */,
 				AEB6C46D22EF078E00107BEB /* DoneViewController.swift */,
+				AE7CE86422F326BE00C1EFE4 /* TaskViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -114,7 +116,7 @@
 				AEB6C45122EF01B900107BEB /* Sources */,
 				AEB6C45222EF01B900107BEB /* Frameworks */,
 				AEB6C45322EF01B900107BEB /* Resources */,
-				86E9201A662799CC706170AA /* [CP] Embed Pods Frameworks */,
+				805535A48D8A15BD11D8D713 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -194,7 +196,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		86E9201A662799CC706170AA /* [CP] Embed Pods Frameworks */ = {
+		805535A48D8A15BD11D8D713 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -227,6 +229,7 @@
 			files = (
 				AEB6C46E22EF078E00107BEB /* DoneViewController.swift in Sources */,
 				AEB6C45B22EF01B900107BEB /* MainTabBarController.swift in Sources */,
+				AE7CE86522F326BE00C1EFE4 /* TaskViewCell.swift in Sources */,
 				AEB6C46C22EF076100107BEB /* TodoViewController.swift in Sources */,
 				AEB6C45922EF01B900107BEB /* AppDelegate.swift in Sources */,
 			);
