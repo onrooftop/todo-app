@@ -69,9 +69,8 @@ class TaskViewCell: UITableViewCell {
     
     //MARK: - Helper
     
-    private func setHeaderText(with text: String, completed: Bool) {
-        let style = completed ? 1 : 0
-        let attribute = NSAttributedString(string: text, attributes: [NSAttributedString.Key.strikethroughStyle: style])
+    private func setHeaderText(with text: String, completed hasStrikethrough: Bool) {
+        let attribute = NSAttributedString(string: text, attributes: [NSAttributedString.Key.strikethroughStyle: hasStrikethrough])
         headerText.attributedText = attribute
     }
     
