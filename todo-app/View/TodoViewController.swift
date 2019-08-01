@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let taskReuseIdentifier = "TaskViewCell"
+private let todoTaskReuseIdentifier = "todoTaskReuseIdentifier"
 
 class TodoViewController: UITableViewController {
 
@@ -33,7 +33,7 @@ class TodoViewController: UITableViewController {
     }
     
     private func setupCell() {
-        tableView.register(TaskViewCell.self, forCellReuseIdentifier: taskReuseIdentifier)
+        tableView.register(TaskViewCell.self, forCellReuseIdentifier: todoTaskReuseIdentifier)
     }
     
     private func setupTableView() {
@@ -84,7 +84,7 @@ class TodoViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: taskReuseIdentifier, for: indexPath) as! TaskViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: todoTaskReuseIdentifier, for: indexPath) as! TaskViewCell
         
         return cell
     }
