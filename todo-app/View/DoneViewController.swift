@@ -41,8 +41,12 @@ class DoneViewController: UITableViewController {
     }
     
     private func setupNav() {
+        navigationController?.navigationBar.tintColor = .black
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Done"
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "•••", style: UIBarButtonItem.Style.plain, target: self, action: #selector(optionsHandler))
         
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "Search done task"
@@ -51,6 +55,12 @@ class DoneViewController: UITableViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    // MARK: - Handler
+    @objc
+    private func optionsHandler() {
+        print("handleOptions")
     }
     
     // MARK: - Table view data source
