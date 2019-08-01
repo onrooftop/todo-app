@@ -8,18 +8,35 @@
 
 import UIKit
 
+private let doneTaskReuseIdentifier = "doneTaskReuseIdentifier"
+
 class DoneViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .blue
         
+        setupView()
+        
+        setupCell()
+        
+        setupTableView()
         
         setupNav()
     }
 
     // MARK: - Set up
+    
+    private func setupView() {
+        view.backgroundColor = UIColor(white: 0.90, alpha: 1)
+    }
+    
+    private func setupCell() {
+        tableView.register(TaskViewCell.self, forCellReuseIdentifier: doneTaskReuseIdentifier)
+    }
+    
+    private func setupTableView() {
+        tableView.rowHeight = 64
+    }
     
     private func setupNav() {
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -35,7 +52,13 @@ class DoneViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 2
+        return 3
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: doneTaskReuseIdentifier, for: indexPath)
+        
+        return cell
     }
 
 
