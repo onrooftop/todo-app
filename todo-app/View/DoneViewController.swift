@@ -12,6 +12,8 @@ private let doneTaskReuseIdentifier = "doneTaskReuseIdentifier"
 
 class DoneViewController: UITableViewController {
 
+    var searchController: UISearchController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +43,14 @@ class DoneViewController: UITableViewController {
     private func setupNav() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Done"
+        
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = "Search done task"
+        searchController.searchBar.tintColor = .black
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     // MARK: - Table view data source
@@ -60,6 +70,10 @@ class DoneViewController: UITableViewController {
         
         return cell
     }
+}
 
-
+extension DoneViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        print(searchController.searchBar.text)
+    }
 }
