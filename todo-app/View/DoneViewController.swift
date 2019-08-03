@@ -84,13 +84,43 @@ class DoneViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let deleteAction = UITableViewRowAction(style: UITableViewRowAction.Style.destructive, title: "Delete") { (action, indexPath) in
-            print("Delete")
+            
+            let alertController = UIAlertController(title: "Delete", message: "Are you sure to delete this task", preferredStyle: UIAlertController.Style.alert)
+            
+            let deleteAction = UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: { (action) in
+                print("Delete task")
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (action) in
+                print("Cancel Delete")
+            })
+            
+            alertController.addAction(deleteAction)
+            
+            alertController.addAction(cancelAction)
+            
+            self.present(alertController, animated: true, completion: nil)
         }
         
         deleteAction.backgroundColor = Colors.ReadPersian
         
         let todoAction = UITableViewRowAction(style: UITableViewRowAction.Style.normal, title: "Todo") { (action, indexPath) in
-            print("Todo")
+            
+            let alertController = UIAlertController(title: "Move to Todo", message: "Are you sure to move this task to be Todo", preferredStyle: UIAlertController.Style.alert)
+            
+            let todoAction = UIAlertAction(title: "Todo", style: UIAlertAction.Style.default, handler: { (action) in
+                print("Todo task")
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (action) in
+                print("Cancel Delete")
+            })
+            
+            alertController.addAction(todoAction)
+            
+            alertController.addAction(cancelAction)
+            
+            self.present(alertController, animated: true, completion: nil)
         }
         
         todoAction.backgroundColor = Colors.BlueSteel
