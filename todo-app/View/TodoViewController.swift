@@ -88,6 +88,37 @@ class TodoViewController: UITableViewController {
         
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteAction = UITableViewRowAction(style: UITableViewRowAction.Style.destructive, title: "Delete") { (action, indexPath) in
+            print("Delete")
+        }
+        
+        deleteAction.backgroundColor = Colors.ReadPersian
+        
+        let doneAction = UITableViewRowAction(style: UITableViewRowAction.Style.normal, title: "Done") { (action, indexPath) in
+            print("Done")
+        }
+        
+        doneAction.backgroundColor = Colors.BlueSteel
+        
+        return [deleteAction, doneAction]
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let editAction = UIContextualAction(style: UIContextualAction.Style.normal, title: "Edit") { (action, view, success) in
+            print("Edit")
+            success(true)
+        }
+
+        let config = UISwipeActionsConfiguration(actions: [editAction])
+        
+        config.performsFirstActionWithFullSwipe = false
+        
+        return config
+    }
 
 }
 
