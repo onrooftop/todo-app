@@ -80,6 +80,23 @@ class DoneViewController: UITableViewController {
         
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteAction = UITableViewRowAction(style: UITableViewRowAction.Style.destructive, title: "Delete") { (action, indexPath) in
+            print("Delete")
+        }
+        
+        deleteAction.backgroundColor = Colors.ReadPersian
+        
+        let todoAction = UITableViewRowAction(style: UITableViewRowAction.Style.normal, title: "Todo") { (action, indexPath) in
+            print("Todo")
+        }
+        
+        todoAction.backgroundColor = Colors.BlueSteel
+        
+        return [deleteAction, todoAction]
+    }
 }
 
 extension DoneViewController: UISearchResultsUpdating {
