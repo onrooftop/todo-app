@@ -60,6 +60,8 @@ class TaskViewController: UIViewController {
         bt.setTitle("CREATE", for: UIControl.State.normal)
         bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         bt.setTitleColor(.white, for: UIControl.State.normal)
+        bt.alpha = 0
+        bt.addTarget(self, action: #selector(handleCreate), for: UIControl.Event.touchUpInside)
         return bt
     }()
     
@@ -68,6 +70,28 @@ class TaskViewController: UIViewController {
         super.viewDidLoad()
 
         setupView()
+        
+        setupNav()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboard(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        view.endEditing(true)
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    override var inputAccessoryView: UIView? {
+        createButton.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 42)
+        return createButton
     }
     
     //MARK: - Set up
@@ -90,8 +114,6 @@ class TaskViewController: UIViewController {
         detailTextView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(detailTextView)
         
-        createButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(createButton)
         
         let constraints = [
             timeCreatedLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
@@ -111,14 +133,35 @@ class TaskViewController: UIViewController {
             detailTextView.topAnchor.constraint(equalTo: detailLabel.bottomAnchor, constant: 8),
             detailTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             detailTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            detailTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -258-48-16),
-            
-            createButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            createButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            createButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            createButton.heightAnchor.constraint(equalToConstant: 48)
+            detailTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -300-48-16)
         ]
         
         NSLayoutConstraint.activate(constraints)
+    }
+    
+    private func setupNav() {
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
+    //MARK: - Handler
+    
+    @objc
+    func handleKeyboard(_ notification: Notification) {
+        guard let keyboardInfo = notification.userInfo else { return }
+        let duration = keyboardInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+        let curve = keyboardInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as! UInt
+        let startingFrame = (keyboardInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        let endingFrame = (keyboardInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        
+        let isHiding = endingFrame.origin.y >= startingFrame.origin.y
+        
+        UIView.animateKeyframes(withDuration: duration, delay: 0, options: UIView.KeyframeAnimationOptions.init(rawValue: curve), animations: {
+            self.createButton.alpha = isHiding ? 0 : 1
+        }, completion: nil)
+    }
+    
+    @objc
+    func handleCreate() {
+        print("Create")
     }
 }

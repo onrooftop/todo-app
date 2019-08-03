@@ -26,6 +26,10 @@ class TodoViewController: UITableViewController {
         setupNav()
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
+    }
 
     // MARK: - Set up
     
