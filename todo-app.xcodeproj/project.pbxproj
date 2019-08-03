@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8367E4520668AC1907FE3422 /* Pods_todo_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A073B3B7DD27FB162DF033 /* Pods_todo_app.framework */; };
 		AE04A12622F581C400E3B6BB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE04A12522F581C400E3B6BB /* Constants.swift */; };
+		AE04A12B22F58EB600E3B6BB /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE04A12A22F58EB600E3B6BB /* TaskViewController.swift */; };
 		AE7CE86522F326BE00C1EFE4 /* TaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7CE86422F326BE00C1EFE4 /* TaskViewCell.swift */; };
 		AEB6C45922EF01B900107BEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB6C45822EF01B900107BEB /* AppDelegate.swift */; };
 		AEB6C45B22EF01B900107BEB /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB6C45A22EF01B900107BEB /* MainTabBarController.swift */; };
@@ -23,6 +24,7 @@
 		20D7E8D7962C35E0708083C1 /* Pods-todo-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todo-app.release.xcconfig"; path = "Target Support Files/Pods-todo-app/Pods-todo-app.release.xcconfig"; sourceTree = "<group>"; };
 		34A073B3B7DD27FB162DF033 /* Pods_todo_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_todo_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE04A12522F581C400E3B6BB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		AE04A12A22F58EB600E3B6BB /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		AE7CE86422F326BE00C1EFE4 /* TaskViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewCell.swift; sourceTree = "<group>"; };
 		AEB6C45522EF01B900107BEB /* todo-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "todo-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEB6C45822EF01B900107BEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				AEB6C46B22EF076100107BEB /* TodoViewController.swift */,
 				AEB6C46D22EF078E00107BEB /* DoneViewController.swift */,
 				AE7CE86422F326BE00C1EFE4 /* TaskViewCell.swift */,
+				AE04A12A22F58EB600E3B6BB /* TaskViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEB6C46E22EF078E00107BEB /* DoneViewController.swift in Sources */,
+				AE04A12B22F58EB600E3B6BB /* TaskViewController.swift in Sources */,
 				AEB6C45B22EF01B900107BEB /* MainTabBarController.swift in Sources */,
 				AE7CE86522F326BE00C1EFE4 /* TaskViewCell.swift in Sources */,
 				AEB6C46C22EF076100107BEB /* TodoViewController.swift in Sources */,

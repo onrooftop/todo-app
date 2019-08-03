@@ -24,6 +24,7 @@ class TodoViewController: UITableViewController {
         setupTableView()
         
         setupNav()
+        
     }
 
     // MARK: - Set up
@@ -63,7 +64,7 @@ class TodoViewController: UITableViewController {
     
     @objc
     func addTaskHandler() {
-        print("addTaskHandler")
+        navigationController?.pushViewController(TaskViewController(), animated: true)
     }
     
     @objc
@@ -140,8 +141,10 @@ class TodoViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let editAction = UIContextualAction(style: UIContextualAction.Style.normal, title: "Edit") { (action, view, success) in
-            print("Edit")
+            
             success(true)
+            
+            self.navigationController?.pushViewController(TaskViewController(), animated: true)
         }
 
         let config = UISwipeActionsConfiguration(actions: [editAction])
