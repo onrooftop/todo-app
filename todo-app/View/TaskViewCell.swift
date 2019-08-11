@@ -10,6 +10,13 @@ import UIKit
 
 class TaskViewCell: UITableViewCell {
 
+    var viewModel: TaskListViewModelType! {
+        didSet {
+            setHeaderText(with: viewModel.output.titleText, completed: viewModel.output.completed)
+            setTimeAgoText(with: viewModel.output.amountOfTimeText)
+        }
+    }
+    
     let headerText: UILabel = {
         let lb = UILabel()
         lb.font = UIFont.boldSystemFont(ofSize: 18)
@@ -77,4 +84,7 @@ class TaskViewCell: UITableViewCell {
     private func setTimeAgoText(with dateString: String) {
         timeAgoText.text = "\(dateString)\nago"
     }
+    
+    // MARK: - ViewModel
+    
 }

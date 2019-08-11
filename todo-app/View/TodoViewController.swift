@@ -13,6 +13,8 @@ private let todoTaskReuseIdentifier = "todoTaskReuseIdentifier"
 class TodoViewController: UITableViewController {
 
     var searchController:UISearchController!
+    
+    var todoViewModel: TodoViewModelType!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +27,13 @@ class TodoViewController: UITableViewController {
         
         setupNav()
         
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = false
+        setupViewModel()
+        tableView.reloadData()
     }
 
     // MARK: - Set up
@@ -64,6 +69,17 @@ class TodoViewController: UITableViewController {
 //        definesPresentationContext = true
     }
     
+    func setupViewModel() {
+        todoViewModel = TodoViewModel(tasks: [
+                Task(title: "A", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
+                Task(title: "AB", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
+                Task(title: "ABC", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
+                Task(title: "ABCD", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
+            ])
+        
+        todoViewModel.output.reloadData = reloadData()
+    }
+    
     // MARK: - Handlers
     
     @objc
@@ -85,12 +101,13 @@ class TodoViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return todoViewModel.output.todoTasks.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: todoTaskReuseIdentifier, for: indexPath) as! TaskViewCell
-        
+        let task = todoViewModel.output.todoTasks[indexPath.row]
+        cell.viewModel = TaskListViewModel(task: task)
         return cell
     }
     
@@ -101,7 +118,7 @@ class TodoViewController: UITableViewController {
             let alertController = UIAlertController(title: "Delete", message: "Are you sure to delete this task", preferredStyle: UIAlertController.Style.alert)
             
             let deleteAction = UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: { (action) in
-                print("Delete task")
+                self.todoViewModel.input.deleteTask(at: indexPath.row)
             })
             
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (action) in
@@ -162,6 +179,14 @@ class TodoViewController: UITableViewController {
 
 extension TodoViewController: UISearchResultsUpdating{
     func updateSearchResults(for searchController: UISearchController) {
-        print(searchController.searchBar.text ?? "")
+        todoViewModel.input.search(with: searchController.searchBar.text ?? "")
+    }
+}
+
+extension TodoViewController {
+    func reloadData() -> (() -> Void) {
+        return { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
 }
