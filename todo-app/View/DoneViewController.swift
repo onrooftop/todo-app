@@ -131,6 +131,6 @@ class DoneViewController: UITableViewController {
 
 extension DoneViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        print(searchController.searchBar.text)
+
     }
 }

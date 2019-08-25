@@ -7,18 +7,17 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Task {
-    var title: String!
-    var detail: String?
-    var completed: Bool = false
-    var createdDate: Date!
-    var completedDate: Date? = nil
+class Task: Object {
+    @objc dynamic var id: Int = 0
+    @objc dynamic var title: String = ""
+    @objc dynamic var detail: String? = nil
+    @objc dynamic var completed: Bool = false
+    @objc dynamic var createdDate: Date = Date()
+    @objc dynamic var completedDate: Date? = nil
     
-    init(title: String!, detail: String?, createdDate: Date!, completed: Bool) {
-        self.title = title
-        self.detail = detail
-        self.createdDate = createdDate
-        self.completed = completed
+    override static func primaryKey() -> String? {
+        return "id"
     }
 }

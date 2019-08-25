@@ -12,11 +12,16 @@ class TodoViewModelTest: XCTestCase {
 
     var vm: TodoViewModelType!
     let tasks: [Task] = [
-        Task(title: "Task1", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
-        Task(title: "Task2", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 60 * 2)!), completed: false)
+        Task(),
+        Task()
     ]
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        // Put setup code here. This method is called before the invocation of each test method in the
+        tasks[0].title = "Task1"
+        tasks[0].createdDate = Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!)
+        tasks[1].title = "Task2"
+        tasks[1].createdDate = Date().addingTimeInterval(-TimeInterval(exactly: 60 * 60 * 2)!)
         vm = TodoViewModel(tasks: tasks)
     }
 
@@ -86,12 +91,17 @@ class TodoViewModelTest: XCTestCase {
     }
     
     func testSearch() {
-        let testTasks = [
-            Task(title: "A", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
-            Task(title: "AB", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
-            Task(title: "ABC", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
-            Task(title: "ABCD", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
-        ]
+        
+        let taskA = Task()
+        taskA.title = "A"
+        let taskAB = Task()
+        taskAB.title = "AB"
+        let taskABC = Task()
+        taskABC.title = "ABC"
+        let taskABCD = Task()
+        taskABCD.title = "ABCD"
+        
+        let testTasks = [taskA, taskAB, taskABC, taskABCD]
         
         vm = TodoViewModel(tasks: testTasks)
         
@@ -105,12 +115,16 @@ class TodoViewModelTest: XCTestCase {
     }
     
     func testSearchWithEmpty() {
-        let testTasks = [
-            Task(title: "A", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
-            Task(title: "AB", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
-            Task(title: "ABC", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
-            Task(title: "ABCD", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
-        ]
+        let taskA = Task()
+        taskA.title = "A"
+        let taskAB = Task()
+        taskAB.title = "AB"
+        let taskABC = Task()
+        taskABC.title = "ABC"
+        let taskABCD = Task()
+        taskABCD.title = "ABCD"
+        
+        let testTasks = [taskA, taskAB, taskABC, taskABCD]
         
         vm = TodoViewModel(tasks: testTasks)
         

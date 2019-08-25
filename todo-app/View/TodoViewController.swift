@@ -70,12 +70,7 @@ class TodoViewController: UITableViewController {
     }
     
     func setupViewModel() {
-        todoViewModel = TodoViewModel(tasks: [
-                Task(title: "A", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
-                Task(title: "AB", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
-                Task(title: "ABC", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
-                Task(title: "ABCD", detail: nil, createdDate: Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!), completed: false),
-            ])
+        todoViewModel = TodoViewModel(tasks: [])
         
         todoViewModel.output.reloadData = reloadData()
     }

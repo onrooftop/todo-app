@@ -15,7 +15,9 @@ class TaskListTest: XCTestCase {
     var task: Task!
     
     override func setUp() {
-        task = Task(title: "Title", detail: "detial", createdDate: Date(), completed: false)
+        task = Task()
+        task.title = "Title"
+        task.detail = "detial"
     }
 
     override func tearDown() {

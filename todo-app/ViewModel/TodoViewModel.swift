@@ -45,7 +45,9 @@ class TodoViewModel: TodoViewModelType, TodoViewModelInput, TodoViewModelOutput{
     }
 
     func createTask(title: String, detail: String) {
-        let task = Task(title: title, detail: detail, createdDate: Date(), completed: false)
+        let task = Task()
+        task.title = title
+        task.detail = detail
         taskList.append(task)
         todoTasks = taskList
         reloadData?()

@@ -8,3 +8,8 @@ target 'todo-app' do
   # Pods for todo-app
   pod 'RealmSwift', '3.17.3'
 end
+
+target 'todo-appTests' do 
+  use_frameworks!
+  pod 'RealmSwift', '3.17.3'
+end
