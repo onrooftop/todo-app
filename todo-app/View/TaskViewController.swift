@@ -28,6 +28,7 @@ class TaskViewController: UIViewController {
     let titleTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Title"
+        tf.text = ""
         tf.borderStyle = UITextField.BorderStyle.line
         tf.layer.borderColor = UIColor.lightGray.cgColor
         tf.layer.borderWidth = 1.5
@@ -61,10 +62,12 @@ class TaskViewController: UIViewController {
         bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         bt.setTitleColor(.white, for: UIControl.State.normal)
         bt.alpha = 0
-        bt.addTarget(self, action: #selector(handleCreate), for: UIControl.Event.touchUpInside)
+        bt.addTarget(self, action: #selector(handleCreateOrEdit), for: UIControl.Event.touchUpInside)
         return bt
     }()
     
+    
+    var viewModel: TaskViewViewModelType? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +75,8 @@ class TaskViewController: UIViewController {
         setupView()
         
         setupNav()
+        
+        setupViewModel()
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboard(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
@@ -143,6 +148,14 @@ class TaskViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
     }
     
+    private func setupViewModel() {
+        if viewModel == nil {
+            viewModel = TaskViewViewModel(database: Database(), editingTask: nil)
+        }
+        
+        viewModel?.output.titleIsNil = titleIsNil()
+    }
+    
     //MARK: - Handler
     
     @objc
@@ -161,7 +174,13 @@ class TaskViewController: UIViewController {
     }
     
     @objc
-    func handleCreate() {
-        print("Create")
+    func handleCreateOrEdit() {
+        viewModel?.input.createOrEditTask(title: (titleTextField.text) ?? "", detail: detailTextView.text)
+    }
+    
+    func titleIsNil() -> (() -> Void)? {
+        return { [unowned self] in
+            self.titleTextField.layer.borderColor = UIColor.red.cgColor
+        }
     }
 }

@@ -21,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = MainTabBarController()
         
+//        try! Database.shared.realm.write {
+//            Database.shared.realm.deleteAll()
+//        }
+//        
+        
         return true
     }
 

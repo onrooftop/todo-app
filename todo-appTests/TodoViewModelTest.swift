@@ -7,26 +7,42 @@
 //
 
 import XCTest
+import RealmSwift
 @testable import todo_app
 class TodoViewModelTest: XCTestCase {
 
     var vm: TodoViewModelType!
+    
+    var database: Database!
     let tasks: [Task] = [
         Task(),
         Task()
     ]
     
     override func setUp() {
+        
+        var config = Realm.Configuration()
+        config.inMemoryIdentifier = self.name + "_test"
+        database = Database(config: config)
+        try! database.realm.write {
+            database.realm.deleteAll()
+        }
         // Put setup code here. This method is called before the invocation of each test method in the
         tasks[0].title = "Task1"
         tasks[0].createdDate = Date().addingTimeInterval(-TimeInterval(exactly: 60 * 5)!)
         tasks[1].title = "Task2"
         tasks[1].createdDate = Date().addingTimeInterval(-TimeInterval(exactly: 60 * 60 * 2)!)
-        vm = TodoViewModel(tasks: tasks)
+        vm = TodoViewModel(database: database)
+        
+        tasks.forEach { (task) in
+            self.vm.input.createTask(title: task.title, detail: task.detail)
+        }
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        try! database.realm.write {
+            database.realm.deleteAll()
+        }
     }
     
     func testCreateTask() {
@@ -48,14 +64,14 @@ class TodoViewModelTest: XCTestCase {
     func testDeleteTask() {
         
         let index = 0
-        let deletedTask = vm.output.todoTasks[index]
+        let deletedId = vm.output.todoTasks[index].id
         let numberOfTasks = vm.output.todoTasks.count
 
         vm.output.reloadData = { [unowned self] in
             
             XCTAssertEqual(self.vm.output.todoTasks.count, numberOfTasks - 1)
             XCTAssertFalse((self.vm.output.todoTasks.contains(where: { (task) -> Bool in
-                return task.title == deletedTask.title && task.detail == deletedTask.detail
+                return task.id == deletedId
             })))
             
         }
@@ -103,7 +119,9 @@ class TodoViewModelTest: XCTestCase {
         
         let testTasks = [taskA, taskAB, taskABC, taskABCD]
         
-        vm = TodoViewModel(tasks: testTasks)
+        testTasks.forEach { (task) in
+            vm.input.createTask(title: task.title, detail: task.detail)
+        }
         
         let query = "C"
         
@@ -115,6 +133,11 @@ class TodoViewModelTest: XCTestCase {
     }
     
     func testSearchWithEmpty() {
+        
+        try! database.realm.write {
+            database.realm.deleteAll()
+        }
+        
         let taskA = Task()
         taskA.title = "A"
         let taskAB = Task()
@@ -126,7 +149,9 @@ class TodoViewModelTest: XCTestCase {
         
         let testTasks = [taskA, taskAB, taskABC, taskABCD]
         
-        vm = TodoViewModel(tasks: testTasks)
+        testTasks.forEach { (task) in
+            vm.input.createTask(title: task.title, detail: task.detail)
+        }
         
         let query = ""
         

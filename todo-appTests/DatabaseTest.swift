@@ -18,9 +18,11 @@ class DatabaseTest: XCTestCase {
         
         // Put setup code here. This method is called before the invocation of each test method in the
         
-        database = Database.shared
         
-        Realm.Configuration.defaultConfiguration.inMemoryIdentifier = self.name
+        var config = Realm.Configuration()
+        config.inMemoryIdentifier = self.name + "_test"
+        database = Database(config: config)
+        
         
         try! database.realm.write {
             database.realm.deleteAll()

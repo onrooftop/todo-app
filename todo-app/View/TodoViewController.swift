@@ -70,7 +70,7 @@ class TodoViewController: UITableViewController {
     }
     
     func setupViewModel() {
-        todoViewModel = TodoViewModel(tasks: [])
+        todoViewModel = TodoViewModel(database: Database())
         
         todoViewModel.output.reloadData = reloadData()
     }

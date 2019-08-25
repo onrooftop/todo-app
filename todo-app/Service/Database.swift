@@ -10,9 +10,14 @@ import Foundation
 import RealmSwift
 
 class Database {
-    static let shared = Database()
-    private(set) var realm: Realm!
-    init() { realm = try! Realm() }
+    var realm: Realm!
+    init(config: Realm.Configuration) {
+        realm = try! Realm(configuration: config)
+    }
+    
+    init() {
+        realm = try! Realm()
+    }
     
     func createOrUpdate(task: Task) {
         

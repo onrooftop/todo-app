@@ -14,37 +14,38 @@ import RealmSwift
 class TaskViewViewModelTest: XCTestCase {
     
     var viewModel: TaskViewViewModelType!
+    var database: Database!
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        viewModel = TaskViewViewModel(database: Database.shared, editingTask: nil)
         
-        Realm.Configuration.defaultConfiguration.inMemoryIdentifier = self.name
+        var config = Realm.Configuration()
+        config.inMemoryIdentifier = self.name + "_test"
+        database = Database(config: config)
         
-        try! Database.shared.realm.write {
-            Database.shared.realm.deleteAll()
+        viewModel = TaskViewViewModel(database: database, editingTask: nil)
+        
+        try! database.realm.write {
+            database.realm.deleteAll()
         }
     }
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
 
     func testCreateTaskWithNilDetail() {
-        viewModel.input.createTask(title: "Title", detail: nil)
+        viewModel.input.createOrEditTask(title: "Title", detail: nil)
         
-        XCTAssertEqual(Database.shared.getAllTasks().count, 1)
-        XCTAssertEqual(Database.shared.getAllTasks().first?.title, "Title")
-        XCTAssertNil(Database.shared.getAllTasks().first?.detail)
+        XCTAssertEqual(database.getAllTasks().count, 1)
+        XCTAssertEqual(database.getAllTasks().first?.title, "Title")
+        XCTAssertNil(database.getAllTasks().first?.detail)
     }
     
     func testCreateTaskWithDetail() {
-        viewModel.input.createTask(title: "Title", detail: "Detail")
+        viewModel.input.createOrEditTask(title: "Title", detail: "Detail")
         
-        XCTAssertEqual(Database.shared.getAllTasks().count, 1)
-        XCTAssertEqual(Database.shared.getAllTasks().first?.title, "Title")
-        XCTAssertEqual(Database.shared.getAllTasks().first?.detail, "Detail")
+        XCTAssertEqual(database.getAllTasks().count, 1)
+        XCTAssertEqual(database.getAllTasks().first?.title, "Title")
+        XCTAssertEqual(database.getAllTasks().first?.detail, "Detail")
     }
     
     func testCreateTaskWithEmpty() {
@@ -53,26 +54,25 @@ class TaskViewViewModelTest: XCTestCase {
             XCTAssert(true)
         }
         
-        viewModel.input.createTask(title: "", detail: "")
+        viewModel.input.createOrEditTask(title: "", detail: "")
     }
     
     func test_editing_task() {
-        
-        viewModel.output.isEditing = { (editing) in
-            XCTAssertTrue(editing)
-        }
+    
         
         let task = Task()
         task.title = "Title"
-        Database.shared.createOrUpdate(task: task)
+        database.createOrUpdate(task: task)
         
-        viewModel = TaskViewViewModel(database: Database.shared, editingTask: task)
+        viewModel = TaskViewViewModel(database: database, editingTask: task)
         
-        viewModel.input.editTask(title: "TitleEdited", detail: "DetailEdited")
+        XCTAssertTrue(viewModel.output.isEditing)
         
-        XCTAssertEqual(Database.shared.getAllTasks().count, 1)
-        XCTAssertEqual(Database.shared.getAllTasks().first?.title, "TitleEdited")
-        XCTAssertEqual(Database.shared.getAllTasks().first?.detail, "DetailEdited")
+        viewModel.input.createOrEditTask(title: "TitleEdited", detail: "DetailEdited")
+        
+        XCTAssertEqual(database.getAllTasks().count, 1)
+        XCTAssertEqual(database.getAllTasks().first?.title, "TitleEdited")
+        XCTAssertEqual(database.getAllTasks().first?.detail, "DetailEdited")
         
     }
 

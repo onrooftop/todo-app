@@ -10,12 +10,11 @@ import Foundation
 
 protocol TaskViewOutput: class {
     var titleIsNil: (() -> Void)? { get set }
-    var isEditing: ((Bool) -> Void)? { get set }
+    var isEditing: Bool { get }
 }
 
 protocol TaskViewInput {
-    func createTask(title: String, detail: String?)
-    func editTask(title: String, detail: String?)
+    func createOrEditTask(title: String, detail: String?)
 }
 
 protocol TaskViewViewModelType {
@@ -25,7 +24,7 @@ protocol TaskViewViewModelType {
 
 class TaskViewViewModel: TaskViewViewModelType, TaskViewInput, TaskViewOutput {
     var titleIsNil: (() -> Void)?
-    var isEditing: ((Bool) -> Void)?
+    var isEditing: Bool
     
     var input: TaskViewInput { return self }
     var output: TaskViewOutput { return self }
@@ -39,9 +38,17 @@ class TaskViewViewModel: TaskViewViewModelType, TaskViewInput, TaskViewOutput {
         
         if let task = task {
             editingTask = task
-            isEditing?(true)
+            isEditing = true
         } else {
-            isEditing?(false)
+            isEditing = false
+        }
+    }
+    
+    func createOrEditTask(title: String, detail: String?) {
+        if isEditing {
+            editTask(title: title, detail: detail)
+        } else {
+            createTask(title: title, detail: detail)
         }
     }
     
