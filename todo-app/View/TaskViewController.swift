@@ -154,6 +154,7 @@ class TaskViewController: UIViewController {
         }
         
         viewModel?.output.titleIsNil = titleIsNil()
+        viewModel?.output.creationCompleted = creationCompleted()
     }
     
     //MARK: - Handler
@@ -181,6 +182,12 @@ class TaskViewController: UIViewController {
     func titleIsNil() -> (() -> Void)? {
         return { [unowned self] in
             self.titleTextField.layer.borderColor = UIColor.red.cgColor
+        }
+    }
+    
+    func creationCompleted() -> (() -> Void)? {
+        return { [unowned self] in
+            self.navigationController?.popViewController(animated: true)
         }
     }
 }

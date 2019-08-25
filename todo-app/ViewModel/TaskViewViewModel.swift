@@ -11,6 +11,7 @@ import Foundation
 protocol TaskViewOutput: class {
     var titleIsNil: (() -> Void)? { get set }
     var isEditing: Bool { get }
+    var creationCompleted: (() -> Void)? { get set }
 }
 
 protocol TaskViewInput {
@@ -25,6 +26,7 @@ protocol TaskViewViewModelType {
 class TaskViewViewModel: TaskViewViewModelType, TaskViewInput, TaskViewOutput {
     var titleIsNil: (() -> Void)?
     var isEditing: Bool
+    var creationCompleted: (() -> Void)?
     
     var input: TaskViewInput { return self }
     var output: TaskViewOutput { return self }
@@ -67,6 +69,8 @@ class TaskViewViewModel: TaskViewViewModelType, TaskViewInput, TaskViewOutput {
         task.detail = detail
         
         database.createOrUpdate(task: task)
+        
+        creationCompleted?()
     }
     
     func editTask(title: String, detail: String?) {
@@ -85,6 +89,8 @@ class TaskViewViewModel: TaskViewViewModelType, TaskViewInput, TaskViewOutput {
             task.id = editingTask.id
             
             database.createOrUpdate(task: task)
+            
+            creationCompleted?()
         }
     
     }
