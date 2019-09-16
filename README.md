@@ -4,4 +4,4 @@ Todo app project
 
 using Realm, MVVM with TDD
 
-![](https://media.giphy.com/media/hvqLHVHo9JbEBOP97u/giphy.gif)
+![](https://media.giphy.com/media/mBYOxG13a18wOKUucx/giphy.gif)
