@@ -155,6 +155,17 @@ class TaskViewController: UIViewController {
         
         viewModel?.output.titleIsNil = titleIsNil()
         viewModel?.output.creationCompleted = creationCompleted()
+        
+        if let isEditing = viewModel?.output.isEditing {
+            if (isEditing) {
+                timeCreatedLabel.isHidden = false
+                timeCreatedLabel.text = viewModel?.output.creationDate
+                titleTextField.text = viewModel?.output.titleString
+                detailTextView.text = viewModel?.output.detailString
+            } else {
+                timeCreatedLabel.isHidden = true
+            }
+        }
     }
     
     //MARK: - Handler

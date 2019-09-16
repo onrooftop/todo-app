@@ -11,8 +11,8 @@ import UIKit
 private let doneTaskReuseIdentifier = "doneTaskReuseIdentifier"
 
 class DoneViewController: UITableViewController {
-
-    var searchController: UISearchController!
+    
+    var viewModel: DoneViewViewModelType!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +24,17 @@ class DoneViewController: UITableViewController {
         setupTableView()
         
         setupNav()
+        
+        setupViewModel()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
+        setupViewModel()
+        tableView.reloadData()
+    }
+
+    
     // MARK: - Set up
     
     private func setupView() {
@@ -38,6 +47,8 @@ class DoneViewController: UITableViewController {
     
     private func setupTableView() {
         tableView.rowHeight = 64
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
     }
     
     private func setupNav() {
@@ -48,19 +59,23 @@ class DoneViewController: UITableViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "•••", style: UIBarButtonItem.Style.plain, target: self, action: #selector(optionsHandler))
         
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.searchBar.placeholder = "Search done task"
-        searchController.searchBar.tintColor = .black
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    private func setupViewModel() {
+        viewModel = DoneViewViewModel(database: Database())
+        viewModel.output.reloadData = reloadData()
     }
     
     // MARK: - Handler
     @objc
     private func optionsHandler() {
         print("handleOptions")
+    }
+    
+    func reloadData() -> (() -> Void) {
+        return { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
     
     // MARK: - Table view data source
@@ -72,11 +87,15 @@ class DoneViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return viewModel.output.tasks.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: doneTaskReuseIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: doneTaskReuseIdentifier, for: indexPath) as! TaskViewCell
+        
+        let task = viewModel.output.tasks[indexPath.row]
+        
+        cell.viewModel = TaskListViewModel(task: task)
         
         return cell
     }
@@ -88,7 +107,10 @@ class DoneViewController: UITableViewController {
             let alertController = UIAlertController(title: "Delete", message: "Are you sure to delete this task", preferredStyle: UIAlertController.Style.alert)
             
             let deleteAction = UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: { (action) in
-                print("Delete task")
+                
+                let task = self.viewModel.output.tasks[indexPath.row]
+                
+                self.viewModel.input.deleteTask(task: task)
             })
             
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (action) in
@@ -109,11 +131,15 @@ class DoneViewController: UITableViewController {
             let alertController = UIAlertController(title: "Move to Todo", message: "Are you sure to move this task to be Todo", preferredStyle: UIAlertController.Style.alert)
             
             let todoAction = UIAlertAction(title: "Todo", style: UIAlertAction.Style.default, handler: { (action) in
-                print("Todo task")
+                
+                let task = self.viewModel.output.tasks[indexPath.row]
+                
+                self.viewModel.input.todoTask(task: task)
+                
             })
             
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (action) in
-                print("Cancel Delete")
+                print("Cancel Todo")
             })
             
             alertController.addAction(todoAction)
@@ -127,10 +153,14 @@ class DoneViewController: UITableViewController {
         
         return [deleteAction, todoAction]
     }
-}
-
-extension DoneViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-
+    
+    @objc
+    private func refresh(sender: UIRefreshControl) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+            self.tableView.refreshControl?.endRefreshing()
+            self.tableView.reloadData()
+        }
     }
+    
 }

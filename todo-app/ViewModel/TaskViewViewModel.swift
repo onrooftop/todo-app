@@ -12,6 +12,9 @@ protocol TaskViewOutput: class {
     var titleIsNil: (() -> Void)? { get set }
     var isEditing: Bool { get }
     var creationCompleted: (() -> Void)? { get set }
+    var creationDate: String { get }
+    var titleString: String { get }
+    var detailString: String { get }
 }
 
 protocol TaskViewInput {
@@ -24,6 +27,11 @@ protocol TaskViewViewModelType {
 }
 
 class TaskViewViewModel: TaskViewViewModelType, TaskViewInput, TaskViewOutput {
+    var titleString: String
+    
+    var detailString: String
+    
+    var creationDate: String
     var titleIsNil: (() -> Void)?
     var isEditing: Bool
     var creationCompleted: (() -> Void)?
@@ -40,9 +48,15 @@ class TaskViewViewModel: TaskViewViewModelType, TaskViewInput, TaskViewOutput {
         
         if let task = task {
             editingTask = task
+            creationDate = TaskViewViewModel.CreationDateFormatter.string(from: task.createdDate)
             isEditing = true
+            titleString = task.title
+            detailString = task.detail ?? ""
         } else {
             isEditing = false
+            creationDate = ""
+            detailString = ""
+            titleString = ""
         }
     }
     
@@ -92,7 +106,13 @@ class TaskViewViewModel: TaskViewViewModelType, TaskViewInput, TaskViewOutput {
             
             creationCompleted?()
         }
-    
     }
+    
+    static let CreationDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = DateFormatter.Style.medium
+        formatter.timeStyle = DateFormatter.Style.medium
+        return formatter
+    }()
     
 }

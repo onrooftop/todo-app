@@ -49,6 +49,18 @@ class TodoViewController: UITableViewController {
     private func setupTableView() {
         tableView.rowHeight = 64
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+    }
+    
+    @objc
+    private func refresh(sender: UIRefreshControl) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+            self.tableView.refreshControl?.endRefreshing()
+            self.tableView.reloadData()
+            self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        }
     }
     
     private func setupNav() {
@@ -135,7 +147,7 @@ class TodoViewController: UITableViewController {
             let alertController = UIAlertController(title: "Move to Done", message: "Are you sure to move this task to be Done", preferredStyle: UIAlertController.Style.alert)
             
             let doneAction = UIAlertAction(title: "Done", style: UIAlertAction.Style.default, handler: { (action) in
-                print("Done task")
+                self.todoViewModel.input.doneTask(at: indexPath.row)
             })
             
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (action) in
@@ -160,7 +172,11 @@ class TodoViewController: UITableViewController {
             
             success(true)
             
-            self.navigationController?.pushViewController(TaskViewController(), animated: true)
+            let taskVC = TaskViewController()
+            let task = self.todoViewModel.output.todoTasks[indexPath.row]
+            taskVC.viewModel = TaskViewViewModel(database: Database(), editingTask: task)
+            
+            self.navigationController?.pushViewController(taskVC, animated: true)
         }
 
         let config = UISwipeActionsConfiguration(actions: [editAction])

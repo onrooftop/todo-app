@@ -19,6 +19,8 @@
 		AE17195E2307F7B800B3CB54 /* DatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE17195D2307F7B800B3CB54 /* DatabaseTest.swift */; };
 		AE1719602312BFE300B3CB54 /* TaskViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE17195F2312BFE300B3CB54 /* TaskViewViewModel.swift */; };
 		AE1719622312C0C100B3CB54 /* TaskViewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1719612312C0C100B3CB54 /* TaskViewViewModelTest.swift */; };
+		AE1719642326A11200B3CB54 /* DoneViewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1719632326A11200B3CB54 /* DoneViewViewModelTest.swift */; };
+		AE1719662326A26400B3CB54 /* DoneViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1719652326A26400B3CB54 /* DoneViewViewModel.swift */; };
 		AE7CE86522F326BE00C1EFE4 /* TaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7CE86422F326BE00C1EFE4 /* TaskViewCell.swift */; };
 		AEB6C45922EF01B900107BEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB6C45822EF01B900107BEB /* AppDelegate.swift */; };
 		AEB6C45B22EF01B900107BEB /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB6C45A22EF01B900107BEB /* MainTabBarController.swift */; };
@@ -56,6 +58,8 @@
 		AE17195D2307F7B800B3CB54 /* DatabaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseTest.swift; sourceTree = "<group>"; };
 		AE17195F2312BFE300B3CB54 /* TaskViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewViewModel.swift; sourceTree = "<group>"; };
 		AE1719612312C0C100B3CB54 /* TaskViewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewViewModelTest.swift; sourceTree = "<group>"; };
+		AE1719632326A11200B3CB54 /* DoneViewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneViewViewModelTest.swift; sourceTree = "<group>"; };
+		AE1719652326A26400B3CB54 /* DoneViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneViewViewModel.swift; sourceTree = "<group>"; };
 		AE43E40822FB29C90073FD4E /* todo-appTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "todo-appTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE43E40C22FB29C90073FD4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AE7CE86422F326BE00C1EFE4 /* TaskViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewCell.swift; sourceTree = "<group>"; };
@@ -133,6 +137,7 @@
 				AE06195322F5ECD3004285AE /* TodoViewModel.swift */,
 				AE17195022FFFBAF00B3CB54 /* TaskListViewModel.swift */,
 				AE17195F2312BFE300B3CB54 /* TaskViewViewModel.swift */,
+				AE1719652326A26400B3CB54 /* DoneViewViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -145,6 +150,7 @@
 				AE171959230022FF00B3CB54 /* TodoViewModelTest.swift */,
 				AE17195D2307F7B800B3CB54 /* DatabaseTest.swift */,
 				AE1719612312C0C100B3CB54 /* TaskViewViewModelTest.swift */,
+				AE1719632326A11200B3CB54 /* DoneViewViewModelTest.swift */,
 			);
 			path = "todo-appTests";
 			sourceTree = "<group>";
@@ -410,6 +416,7 @@
 			files = (
 				AE1719622312C0C100B3CB54 /* TaskViewViewModelTest.swift in Sources */,
 				AE17195A230022FF00B3CB54 /* TodoViewModelTest.swift in Sources */,
+				AE1719642326A11200B3CB54 /* DoneViewViewModelTest.swift in Sources */,
 				AE17195E2307F7B800B3CB54 /* DatabaseTest.swift in Sources */,
 				AE17194F22FFFAD300B3CB54 /* TaskListTest.swift in Sources */,
 			);
@@ -425,6 +432,7 @@
 				AEB6C46E22EF078E00107BEB /* DoneViewController.swift in Sources */,
 				AE04A12B22F58EB600E3B6BB /* TaskViewController.swift in Sources */,
 				AEB6C45B22EF01B900107BEB /* MainTabBarController.swift in Sources */,
+				AE1719662326A26400B3CB54 /* DoneViewViewModel.swift in Sources */,
 				AE7CE86522F326BE00C1EFE4 /* TaskViewCell.swift in Sources */,
 				AEB6C46C22EF076100107BEB /* TodoViewController.swift in Sources */,
 				AE06195122F5EACD004285AE /* Task.swift in Sources */,
